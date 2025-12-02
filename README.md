@@ -1,6 +1,6 @@
 <!--
 Tags: Fund, Dev, Skils
-Label: 🧠 Quiz Essencial
+Label: ☁️ Quiz Essencial
 Description: Aplicação web para criação e fixação de quizzes através da geração de JSON estruturado via IA, com recurso exclusivo de Recomeço Seletivo (Repescagem) em questões erradas.
 technical_requirement: JavaScript (Vanilla DOM Manipulation), HTML5, CSS3 (Dark Theme), JSON, Prompts Estruturados.
 path_hook: hookfigma.hook8, hookfigma.hook12, hookfigma.hook13
@@ -36,14 +36,30 @@ Gera questões de múltipla escolha de alto nível, com uma justificativa detalh
 | **Metadados de Contexto** | Usa tags `` para categorizar e filtrar o tipo de prompt. | **Organização:** Facilita a busca e a organização do seu acervo de prompts de estudo. |
 | **Nível de Dificuldade** | Permite solicitar conteúdo em diferentes níveis (Básico, Intermediário, **Avançado**), garantindo o desafio adequado. | **Progressão:** Adapta o estudo ao seu nível atual, garantindo que o aprendizado seja sempre relevante. |
 
+
+## 🛠️ Stack Tecnológico
+
+* **Frontend:** JavaScript (Vanilla DOM Manipulation)
+* **Estrutura:** HTML5
+* **Estilo:** CSS3 (Totalmente Dark Theme 🌑)
+* **Dados:** JSON
+* **Geração:** Prompts Estruturados (Engenharia de Prompting Avançada)
+
 ---
 
 ## ⚙️ Como Usar (Fluxo de Trabalho)
 
-1.  **Defina o Assunto e o Nível:** Exemplo: Assunto: `GCP`, Nível: `Avançado`.
-2.  **Defina a Estrutura de Saída:** Escolha se você precisa de um **Roteiro em Markdown** ou um **Quiz em JSON**.
-3.  **Gere o Prompt:** Use o gerador de prompts para criar o conteúdo estruturado.
-4.  **Estude e Fixe:** Interaja com o material gerado, utilizando a estrutura rigorosa para uma revisão ativa.
+1.  **Clone o Repositório:**
+    ```bash
+    git clone [LINK_DO_SEU_REPOSITÓRIO]
+    cd quiz-essencial
+    ```
+2.  **Abra o `index.html`:**
+    Simplesmente abra o arquivo `index.html` em seu navegador. Não são necessários servidores ou dependências externas (exceto a conexão com o motor de IA via API).
+3.  **Defina o Assunto e o Nível:** Exemplo: Assunto: `GCP`, Nível: `Avançado`.
+4.  **Defina a Estrutura de Saída:** Escolha se você precisa de um **Roteiro em Markdown** ou um **Quiz em JSON**.
+5.  **Gere o Prompt:** Use o gerador de prompts para criar o conteúdo estruturado.
+6.  **Estude e Fixe:** Interaja com o material gerado, utilizando a estrutura rigorosa para uma revisão ativa.
 
 ### Exemplo de Saída (Quiz de Fixação Avançada em JSON)
 
@@ -60,3 +76,13 @@ Gera questões de múltipla escolha de alto nível, com uma justificativa detalh
     ]
   }
 ]
+```
+## 💡 Future Improvements (Para Você e Desenvolvedores)
+- Persistência:
+    - Adicionar a função `salvarQuiz(quizJSON)` usando `localStorage.setItem('quiz_atual', JSON.stringify(quizJSON))` após cada interação do usuário.
+    - Adicionar a função `carregarQuiz()` usando `JSON.parse(localStorage.getItem('quiz_atual'))` no carregamento da página.
+- UX/UI: Implementar a progress bar (manipulação da `width` via JS) e classes CSS de acerto/er
+
+## 🤝 Contribuições
+
+Este é um projeto **Dev** focado em melhorar a eficácia do estudo e fixação de conteúdo complexo. Contribuições, sugestões e relatórios de bugs são bem-vindos!
