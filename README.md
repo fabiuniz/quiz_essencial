@@ -9,7 +9,11 @@ path_hook: hookfigma.hook8, hookfigma.hook12, hookfigma.hook13
 
 > ⚙️ **Quiz Essencial** é a sua plataforma de estudo de próxima geração, projetada para transformar o aprendizado passivo em fixação ativa, utilizando prompts de conteúdo altamente estruturados e formatos de revisão otimizados (como o JSON de Quiz ou Roteiros de Ação).
 
+<p align="center">
+  <img src="images/screenshot.png" alt="Screenshot do Quiz Essencial" width="600"/>
+</p>
 ---
+
 
 ## 💡 O Conceito: Fixação Ativa com Estrutura
 
@@ -51,7 +55,7 @@ Gera questões de múltipla escolha de alto nível, com uma justificativa detalh
 
 1.  **Clone o Repositório:**
     ```bash
-    git clone [LINK_DO_SEU_REPOSITÓRIO]
+    git clone [https://github.com/fabiuniz/quiz_essencial.git]
     cd quiz-essencial
     ```
 2.  **Abra o `index.html`:**
@@ -77,7 +81,7 @@ Gera questões de múltipla escolha de alto nível, com uma justificativa detalh
   }
 ]
 ```
-## 💡 Future Improvements (Para Você e Desenvolvedores)
+## 💡 Melhorias Futuras
 - Persistência:
     - Adicionar a função `salvarQuiz(quizJSON)` usando `localStorage.setItem('quiz_atual', JSON.stringify(quizJSON))` após cada interação do usuário.
     - Adicionar a função `carregarQuiz()` usando `JSON.parse(localStorage.getItem('quiz_atual'))` no carregamento da página.
