@@ -1,12 +1,19 @@
-# 🚀 PromptFix Academy: Estudo Estruturado e Fixação Avançada
+<!--
+Tags: Fund, Dev, Skils
+Label: 🧠 Quiz Essencial
+Description: Aplicação web para criação e fixação de quizzes através da geração de JSON estruturado via IA, com recurso exclusivo de Recomeço Seletivo (Repescagem) em questões erradas.
+technical_requirement: JavaScript (Vanilla DOM Manipulation), HTML5, CSS3 (Dark Theme), JSON, Prompts Estruturados.
+path_hook: hookfigma.hook8, hookfigma.hook12, hookfigma.hook13
+-->
+# 🚀 Quiz Essencial: Estudo Estruturado e Fixação Avançada
 
-> ⚙️ **PromptFix Academy** é a sua plataforma de estudo de próxima geração, projetada para transformar o aprendizado passivo em fixação ativa, utilizando prompts de conteúdo altamente estruturados e formatos de revisão otimizados (como o JSON de Quiz ou Roteiros de Ação).
+> ⚙️ **Quiz Essencial** é a sua plataforma de estudo de próxima geração, projetada para transformar o aprendizado passivo em fixação ativa, utilizando prompts de conteúdo altamente estruturados e formatos de revisão otimizados (como o JSON de Quiz ou Roteiros de Ação).
 
 ---
 
 ## 💡 O Conceito: Fixação Ativa com Estrutura
 
-Em vez de consumir conteúdo linearmente, o **PromptFix Academy** força o estudante a interagir com informações complexas através de formatos rigorosos, garantindo que o conhecimento seja não apenas compreendido, mas ativamente fixado.
+Em vez de consumir conteúdo linearmente, o **Quiz Essencial** força o estudante a interagir com informações complexas através de formatos rigorosos, garantindo que o conhecimento seja não apenas compreendido, mas ativamente fixado.
 
 A aplicação se baseia em dois pilares principais:
 
