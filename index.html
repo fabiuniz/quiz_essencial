@@ -16,7 +16,7 @@
             --cor-borda: #333;
             --cor-sombra: rgba(0, 0, 0, 0.5);
             
-            /* Cores de Ação/Feedback - Mantidas para visibilidade */
+            /* Cores de Ação/Feedback */
             --cor-primaria: #007bff;
             --cor-primaria-hover: #0056b3;
             --cor-correto: #4CAF50;
@@ -32,7 +32,6 @@
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            /* Fundo Escuro */
             background: var(--cor-fundo-principal); 
             color: var(--cor-texto-principal);
         }
@@ -44,7 +43,6 @@
             align-items: center;
         }
         
-        /* Cor de Título Claro */
         .titulo h1 {
             color: var(--cor-texto-principal);
             margin-bottom: 5px;
@@ -54,11 +52,10 @@
             width: 90%;
             max-width: 600px;
             padding: 20px;
-            /* Fundo do Card Escuro */
             background: var(--cor-fundo-card);
             border: 1px solid var(--cor-borda);
             box-shadow: 0 4px 12px var(--cor-sombra); 
-            border-radius: 8px; /* Borda arredondada para tema escuro */
+            border-radius: 8px;
         }
 
         /* --- ESTILOS PARA EDIÇÃO DE JSON E PROMPT --- */
@@ -72,6 +69,7 @@
             font-size: 0.8em;
             margin-bottom: 15px;
             transition: background 0.2s;
+            border-radius: 4px;
         }
         #btn-open-editor:hover {
             background: #2b2b2b;
@@ -79,7 +77,7 @@
         }
 
         #editor-container {
-            display: none; /* Inicia oculto */
+            display: none; 
             width: 90%;
             max-width: 600px;
             padding: 15px;
@@ -93,7 +91,7 @@
             display: flex;
             gap: 10px;
             margin-bottom: 15px;
-            flex-wrap: wrap; /* Para telas menores */
+            flex-wrap: wrap; 
         }
 
         .prompt-config label {
@@ -112,12 +110,45 @@
         }
 
         .prompt-config #input-assunto {
-            flex-grow: 1; /* Permite que o campo assunto ocupe mais espaço */
+            flex-grow: 1; 
+        }
+        
+        /* Container para alinhar o label e os botões */
+        .label-prompt-container {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            margin-bottom: 5px; 
+        }
+        /* Estilo para garantir que os botões fiquem lado a lado */
+        .label-prompt-container > div {
+            display: flex;
+            gap: 5px; 
+        }
+
+        /* Estilos dos Botões de Cópia e Colar */
+        #btn-copy-prompt-json, #btn-paste-json {
+            background: none;
+            border: 1px solid var(--cor-borda);
+            color: var(--cor-texto-secundario);
+            padding: 3px 8px;
+            cursor: pointer;
+            font-size: 0.75em;
+            border-radius: 4px;
+            transition: background 0.2s;
+            display: flex; 
+            align-items: center;
+            gap: 5px;
+        }
+
+        #btn-copy-prompt-json:hover, #btn-paste-json:hover {
+            background: #3a3a3a;
+            color: var(--cor-texto-principal);
         }
         
         #json-input {
             width: calc(100% - 10px);
-            min-height: 250px; /* Aumentado o tamanho para visualizar melhor o prompt */
+            min-height: 250px; 
             margin-bottom: 10px;
             padding: 5px;
             box-sizing: border-box;
@@ -127,6 +158,7 @@
             color: var(--cor-texto-secundario);
             border: 1px solid #555;
             resize: vertical;
+            border-radius: 4px;
         }
 
         #btn-apply-json {
@@ -138,6 +170,7 @@
             cursor: pointer;
             font-weight: bold;
             transition: background 0.2s;
+            border-radius: 4px;
         }
         #btn-apply-json:hover {
             background: #388e3c;
@@ -183,7 +216,6 @@
             padding: 10px;
             border: 1px solid var(--cor-borda);
             cursor: pointer;
-            /* Estilo Botão Padrão Escuro */
             background: #2b2b2b; 
             color: var(--cor-texto-principal);
             text-align: left;
@@ -196,7 +228,7 @@
             border-color: #555;
         }
         
-        /* Estilos de Feedback (mantidos com cores vibrantes) */
+        /* Estilos de Feedback */
         .correto {
             background-color: var(--cor-correto) !important;
             color: white;
@@ -260,7 +292,6 @@
         }
 
         .botao-recomecar {
-            /* Botão de Recomeço Padrão no Tema Escuro */
             background: #3a3a3a;
             color: var(--cor-texto-principal);
         }
@@ -269,9 +300,8 @@
         }
         
         .botao-recomecar-erros {
-            /* Botão de Destaque */
             background: var(--cor-recomecar-erros); 
-            color: #1e1e1e; /* Texto escuro no botão amarelo */
+            color: #1e1e1e; 
             display: none; 
             border-color: var(--cor-recomecar-erros);
         }
@@ -308,7 +338,7 @@
     <div id="editor-container">
         <h3 style="margin-top: 0; color: var(--cor-texto-principal);">Instruções para Carregamento</h3>
         <p style="font-size: 0.9em; color: var(--cor-texto-secundario); margin-bottom: 15px;">
-            Use o prompt abaixo para pedir a IA Gemini gerar o JSON e então Você pode **colar o JSON de questões gerado** diretamente na caixa abaixo, pode usar os campos de personalização para **personalizar o prompt**. O resultado da IA deve ser **SOMENTE** o código JSON.
+            Use o prompt abaixo para pedir a IA Gemini gerar o JSON e então Você pode **colar o JSON de questões gerado** diretamente na caixa abaixo. Use os campos de personalização para **personalizar o prompt**. O resultado da IA deve ser **SOMENTE** o código JSON.
         </p>
 
         <div class="prompt-config">
@@ -327,9 +357,19 @@
             <input type="text" id="input-assunto" value="Programação Assíncrona com Async/Await em JavaScript">
         </div>
 
-        <label for="json-input" style="font-weight: bold; color: var(--cor-texto-principal);">
-            Insira seu JSON ou use este prompt em uma IA:
-        </label>
+        <div class="label-prompt-container">
+            <label for="json-input" style="font-weight: bold; color: var(--cor-texto-principal);">
+                Insira seu JSON ou use este prompt em uma IA:
+            </label>
+            <div> 
+                <button id="btn-copy-prompt-json" title="Copiar prompt gerado para a área de transferência">
+                    📋 Copiar Prompt
+                </button>
+                <button id="btn-paste-json" title="Colar JSON do clipboard (navegadores modernos)">
+                    📥 Colar JSON
+                </button>
+            </div>
+        </div>
         
         <textarea id="json-input" placeholder="Cole o array JSON com as perguntas aqui ou use o prompt gerado..."></textarea>
         <button id="btn-apply-json">OK - Aplicar e Recomeçar Quiz</button>
@@ -357,7 +397,7 @@
     <script>
         // Inicializa a variável no escopo global (window) se ela ainda não existir.
         if (typeof window.perguntasOriginais === 'undefined') {
-            window.perguntasOriginais = window.perguntasOriginais || []; // Assume que quiz.js define perguntasOriginais
+            window.perguntasOriginais = [...perguntasOriginais] || []; // Assume que quiz.js define perguntasOriginais
         }
         
         // =========================================================================
@@ -378,22 +418,27 @@
         const botaoContinuar = document.querySelector(".botao-continuar"); 
         const botaoRecomecarErros = document.querySelector(".botao-recomecar-erros"); 
         
-        // Novos elementos para a função de edição de JSON/Prompt
+        // Elementos para a função de edição de JSON/Prompt
         const btnOpenEditor = document.getElementById('btn-open-editor');
         const editorContainer = document.getElementById('editor-container');
         const jsonInput = document.getElementById('json-input');
         const btnApplyJson = document.getElementById('btn-apply-json');
-        // Novos campos de personalização
+        
+        // Campos de personalização
         const inputQuantidade = document.getElementById('input-quantidade');
         const inputAssunto = document.getElementById('input-assunto');
         const selectDificuldade = document.getElementById('select-dificuldade');
+        
+        // Elementos do Botão de Cópia e Colar
+        const btnCopyPrompt = document.getElementById('btn-copy-prompt-json');
+        const btnPasteJson = document.getElementById('btn-paste-json'); 
 
 
         let indiceAtual = 0;
         let acertos = 0;
 
         // =========================================================================
-        // 3. FUNÇÕES DE FLUXO DO QUIZ (SEM MUDANÇAS)
+        // 3. FUNÇÕES DE FLUXO DO QUIZ
         // =========================================================================
 
         function selecionarResposta(botaoClicado, respostaCorreta) {
@@ -403,9 +448,10 @@
             Array.from(respostasElemento.children).forEach(botao => {
                 botao.disabled = true;
                 
+                // Encontra a resposta no objeto da pergunta
                 const respostaAssociada = perguntaAtual.respostas.find(r => r.opcao === botao.textContent);
                 
-                if (respostaAssociada.correto) {
+                if (respostaAssociada && respostaAssociada.correto) {
                     botao.classList.add("correto");
                 } else if (botao === botaoClicado) {
                     botao.classList.add("incorreto");
@@ -442,11 +488,10 @@
         }
 
         function carregarPergunta() {
-            // Verifica se a lista de perguntas está vazia (pode acontecer se quiz.js falhar)
-            if (perguntasAtuais.length === 0 && window.perguntasOriginais && window.perguntasOriginais.length > 0) {
-                 // Inicializa novamente se for o caso
-                 perguntasAtuais = [...window.perguntasOriginais];
-            } else if (!window.perguntasOriginais || perguntasAtuais.length === 0) {
+            // Se a lista atual estiver vazia, usa a original para evitar erros
+            if (perguntasAtuais.length === 0 && perguntasOriginais.length > 0) {
+                 perguntasAtuais = [...perguntasOriginais];
+            } else if (perguntasAtuais.length === 0) {
                 perguntaElemento.textContent = "Nenhuma questão carregada. Insira o JSON de questões usando o botão 'Carregar Novo JSON'.";
                 progressoElemento.textContent = "0/0";
                 respostasElemento.innerHTML = "";
@@ -460,7 +505,10 @@
 
             respostasElemento.innerHTML = ""; 
 
-            perguntasAtuais[indiceAtual].respostas.forEach(resposta => {
+            // Embaralha as respostas (boa prática, embora o prompt da IA já deva fazer isso)
+            const respostasEmbaralhadas = [...perguntaAtual.respostas].sort(() => Math.random() - 0.5);
+
+            respostasEmbaralhadas.forEach(resposta => {
                 const botao = document.createElement("button");
                 botao.classList.add("botao-resposta");
                 botao.textContent = resposta.opcao;
@@ -478,10 +526,8 @@
             let mensagem;
 
             if (emRepescagem) {
-                // Mensagem específica para rodada de repescagem
                 mensagem = `Parabéns! Na rodada de erros, você acertou **${acertos} de ${totalPerguntasRodada}** perguntas, atingindo **${percentualRodada}%** de precisão.`;
             } else {
-                // Mensagem para a primeira rodada
                 mensagem = `Parabéns! Você acertou **${acertos} de ${totalPerguntasRodada}** perguntas, atingindo **${percentualRodada}%** de acertividade!`;
             }
 
@@ -497,7 +543,6 @@
             } else {
                 botaoRecomecarErros.style.display = "none";
                 
-                // Se não houver mais erros e for repescagem, informa que terminou tudo
                 if (emRepescagem) {
                     textoFinal.innerHTML += "<br><br>🎉 **Você zerou todos os erros! Excelente trabalho!**";
                 }
@@ -511,7 +556,9 @@
             }
 
             emRepescagem = true;
+            // Cria uma nova lista de perguntas apenas com os erros
             perguntasAtuais = [...perguntasErradas]; 
+            // Limpa o rastreador de erros para a próxima rodada
             perguntasErradas = []; 
             
             indiceAtual = 0;
@@ -526,8 +573,8 @@
             emRepescagem = false;
             
             // Recarrega a lista original de perguntas
-            perguntasAtuais = [...window.perguntasOriginais]; 
-            perguntasErradas = []; // Limpa todos os erros
+            perguntasAtuais = [...perguntasOriginais]; 
+            perguntasErradas = []; 
             
             indiceAtual = 0;
             acertos = 0;
@@ -539,7 +586,7 @@
 
 
         // =========================================================================
-        // 4. FUNÇÕES DE EDIÇÃO DE JSON E GERAÇÃO DE PROMPT (Nova Funcionalidade)
+        // 4. FUNÇÕES DE EDIÇÃO DE JSON E GERAÇÃO DE PROMPT
         // =========================================================================
 
         function toggleEditor() {
@@ -552,7 +599,7 @@
 
         function applyNewJson() {
             const jsonText = jsonInput.value.trim();
-            // Tenta detectar se o usuário colou o prompt em vez do JSON.
+            // Evita que o usuário cole o prompt em vez do JSON.
             if (jsonText.includes("Instruções: Crie") && jsonText.includes("Estrutura de Saída (Formato JSON)")) {
                 alert('Atenção: Você colou o **prompt**, e não o JSON. Por favor, use o prompt em uma IA e cole aqui SOMENTE o código JSON resultante (o array `[...]`).');
                 return;
@@ -564,13 +611,12 @@
             }
 
             try {
-                // Tenta fazer o parsing do JSON.
                 const novoJson = JSON.parse(jsonText);
 
-                // Validação básica
+                // Validação básica para garantir que é um array de perguntas
                 if (Array.isArray(novoJson) && novoJson.length > 0 && novoJson[0].hasOwnProperty('pergunta')) {
-                    // Aplica o novo JSON à variável global 'window.perguntasOriginais'.
-                    window.perguntasOriginais = novoJson; 
+                    // Define o novo JSON como a fonte original
+                    perguntasOriginais = novoJson; 
 
                     // Reinicia o quiz com a nova lista de perguntas
                     recomecarJogoCompleto(); 
@@ -582,7 +628,6 @@
                 }
 
             } catch (e) {
-                // Captura erros de parsing JSON.
                 alert('Erro ao processar JSON: Verifique a sintaxe JSON. Erro: ' + e.message);
             }
         }
@@ -591,27 +636,26 @@
          * Cria um prompt estruturado para gerar questões em formato JSON.
          */
         function criarPromptParaQuestoes(quantidade, assunto, dificuldade) {
-            // Estrutura JSON de exemplo para referência no prompt
             const estruturaExemplo = `
 [
     {
-        "pergunta": "Qual domínio compreende a maior porcentagem de conteúdo pontuado no AWS Certified Machine Learning – Specialty Exam (MLS-C01)?",
-        "justificativa": "O domínio **Modeling** é o de maior peso no exame MLS-C01, representando 36% do conteúdo. ",
+        "pergunta": "Qual é a capital da França?",
+        "justificativa": "Paris é a capital e a maior cidade da França, centro cultural e econômico.",
         "respostas": [
             {
-                "opcao": "Data engineering (20%)",
+                "opcao": "Berlim",
                 "correto": false
             },
             {
-                "opcao": "Modeling (36%)",
+                "opcao": "Paris",
                 "correto": true
             },
             {
-                "opcao": "Exploratory data analysis (24%)",
+                "opcao": "Madrid",
                 "correto": false
             },
             {
-                "opcao": "Machine learning implementation and operations (20%)",
+                "opcao": "Roma",
                 "correto": false
             }
         ]
@@ -619,7 +663,6 @@
 ]
 `;
 
-            // Montando o prompt dinamicamente usando template literals
             const prompt = `
 Instruções: Crie **${quantidade}** questões de múltipla escolha sobre o assunto **${assunto}**.
 
@@ -652,9 +695,6 @@ ${estruturaExemplo.trim()}
             return prompt.trim();
         }
 
-        /**
-         * Atualiza o texto do prompt na textarea com base nos campos de entrada.
-         */
         function updatePromptText() {
             const quantidade = parseInt(inputQuantidade.value) || 10;
             const assunto = inputAssunto.value || "Tópico Essencial";
@@ -662,6 +702,60 @@ ${estruturaExemplo.trim()}
             
             jsonInput.value = criarPromptParaQuestoes(quantidade, assunto, dificuldade);
         }
+
+        // =========================================================================
+        // 4.1 FUNÇÕES DE CONTROLE DO CLIPBOARD
+        // =========================================================================
+        function copyPromptToClipboard() {
+            jsonInput.select();
+            jsonInput.setSelectionRange(0, 99999); 
+
+            try {
+                const successful = document.execCommand('copy');
+                const msg = successful ? 'Copiado!' : 'Falha na Cópia.';
+                
+                btnCopyPrompt.textContent = '✅ ' + msg;
+                setTimeout(() => {
+                    btnCopyPrompt.textContent = '📋 Copiar Prompt';
+                }, 1500); 
+
+            } catch (err) {
+                btnCopyPrompt.textContent = '❌ Erro ao Copiar';
+                console.error('Erro de cópia:', err);
+                setTimeout(() => {
+                    btnCopyPrompt.textContent = '📋 Copiar Prompt';
+                }, 1500);
+                alert('Falha ao tentar copiar o texto. Por favor, copie manualmente.');
+            }
+        }
+        
+        async function pasteFromClipboard() {
+            if (!navigator.clipboard || !navigator.clipboard.readText) {
+                alert('Atenção: Seu navegador não suporta a leitura programática do clipboard (API Clipboard). Por favor, use o atalho Ctrl+V ou clique direito > Colar.');
+                return;
+            }
+            
+            btnPasteJson.textContent = '... Colando ...';
+
+            try {
+                const clipboardText = await navigator.clipboard.readText();
+                
+                jsonInput.value = clipboardText;
+
+                btnPasteJson.textContent = '✅ Colado!';
+                
+            } catch (err) {
+                console.error('Erro ao ler do clipboard:', err);
+                btnPasteJson.textContent = '❌ Permissão Negada';
+                alert('Falha ao colar: O navegador precisa da sua permissão para ler o clipboard. Por favor, use o atalho Ctrl+V (ou Command+V).');
+                
+            } finally {
+                setTimeout(() => {
+                    btnPasteJson.textContent = '📥 Colar JSON';
+                }, 2000);
+            }
+        }
+
 
         // =========================================================================
         // 5. EVENT LISTENERS E INICIALIZAÇÃO
@@ -675,6 +769,8 @@ ${estruturaExemplo.trim()}
         // Eventos do Editor de JSON
         btnOpenEditor.addEventListener('click', toggleEditor);
         btnApplyJson.addEventListener('click', applyNewJson);
+        btnCopyPrompt.addEventListener('click', copyPromptToClipboard); 
+        btnPasteJson.addEventListener('click', pasteFromClipboard); 
 
         // Eventos para atualizar o prompt dinamicamente
         inputQuantidade.addEventListener('input', updatePromptText);

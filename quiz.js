@@ -1,90 +1,47 @@
-const perguntasOriginais  = [
+const perguntasOriginais = [
   {
-    "pergunta": "Qual domínio compreende a maior porcentagem de conteúdo pontuado no AWS Certified Machine Learning – Specialty Exam (MLS-C01)?",
-    "justificativa": "O domínio **Modeling** é o de maior peso no exame MLS-C01, representando 36% do conteúdo. ",
-    "respostas": [
-      {
-        "opcao": "Data engineering (20%)",
-        "correto": false
-      },
-      {
-        "opcao": "Exploratory data analysis (24%)",
-        "correto": false
-      },
-      {
-        "opcao": "Machine learning implementation and operations (20%)",
-        "correto": false
-      },
-      {
-        "opcao": "Modeling (36%)",
-        "correto": true
-      }
+    pergunta: "Qual é o principal benefício de focar na trilha 'Google Cloud Computing Foundations' (PEF36)?",
+    justificativa: "A trilha PEF36 é essencial porque garante o acesso gratuito aos laboratórios práticos validados para o curso, que são o coração do aprendizado prático em Google Cloud.",
+    respostas: [
+      { opcao: "Gera o certificado principal do curso imediatamente.", correto: false },
+      { opcao: "Garante o acesso gratuito aos laboratórios práticos validados.", correto: true },
+      { opcao: "Torna a visualização dos vídeos obrigatória.", correto: false }
     ]
   },
   {
-    "pergunta": "Qual é o primeiro passo recomendado no caminho tradicional para a certificação de especialização em aprendizado de máquina? (10 pontos)",
-    "justificativa": "Embora não haja pré-requisitos rígidos, a **AWS Certified AI Practitioner** é uma certificação fundamental que estabelece a base de conhecimentos em IA, ML e GenAI na AWS, sendo o ponto de partida ideal antes de se aprofundar na especialidade.",
-    "respostas": [
-      {
-        "opcao": "AWS Certified AI Practitioner",
-        "correto": true
-      },
-      {
-        "opcao": "AWS Certified Machine Learning Engineer – Associate",
-        "correto": false
-      },
-      {
-        "opcao": "AWS Certified Data Engineer – Associate",
-        "correto": false
-      },
-      {
-        "opcao": "AWS Certified Machine Learning – Specialty",
-        "correto": false
-      }
+    pergunta: "Qual ação é recomendada para aumentar o tempo disponível para a realização dos Laboratórios Práticos (Labs)?",
+    justificativa: "Ativar 'Opt me in for extended time accommodation' é uma dica crucial para alunos, pois estende o tempo de execução dos laboratórios, o que é útil para quem está começando ou precisa de mais tempo para resolver problemas.",
+    respostas: [
+      { opcao: "Fazer o 'update' do curso.", correto: false },
+      { opcao: "Ativar 'Opt me in for extended time accommodation' nas configurações.", correto: true },
+      { opcao: "Assistir a todos os vídeos do módulo.", correto: false }
     ]
   },
   {
-    "pergunta": "Qual a porcentagem do conteúdo do exame AWS Certified Machine Learning – Specialty dedicada à análise exploratória de dados? (10 pontos)",
-    "justificativa": "O domínio de Exploratory Data Analysis (EDA) representa **24%** do conteúdo total do exame MLS-C01.",
-    "respostas": [
-      {
-        "opcao": "20%",
-        "correto": false
-      },
-      {
-        "opcao": "24%",
-        "correto": true
-      },
-      {
-        "opcao": "36%",
-        "correto": false
-      },
-      {
-        "opcao": "40%",
-        "correto": false
-      }
+    pergunta: "O que é um 'Badge' (Distintivo) na plataforma Google Skills?",
+    justificativa: "Um 'Badge' é uma prova digital de que o usuário completou com sucesso um curso ou um conjunto de atividades, sendo visível em seu perfil público como uma conquista.",
+    respostas: [
+      { opcao: "É o nome de um tipo de laboratório avançado.", correto: false },
+      { opcao: "É uma marcação para documentos PDF obrigatórios.", correto: false },
+      { opcao: "É um distintivo no perfil público que comprova a conclusão de atividades.", correto: true }
     ]
   },
   {
-    "pergunta": "Qual é o nível mínimo de experiência recomendado para a certificação AWS Certified Machine Learning – Specialty? (10 pontos)",
-    "justificativa": "A AWS recomenda que o candidato tenha **2 ou mais anos de experiência prática** no desenvolvimento e execução de workloads de Machine Learning (ML) na AWS Cloud.",
-    "respostas": [
-      {
-        "opcao": "No experience required",
-        "correto": false
-      },
-      {
-        "opcao": "1 year of ML experience",
-        "correto": false
-      },
-      {
-        "opcao": "2 years of ML experience",
-        "correto": true
-      },
-      {
-        "opcao": "5 years of AWS experience",
-        "correto": false
-      }
+    pergunta: "Para a conclusão de um módulo, como os 'Documentos' (PDFs) são marcados como concluídos na plataforma?",
+    justificativa: "Diferente de vídeos (que exigem visualização) e labs (que exigem realização), os documentos em PDF geralmente são marcados como concluídos apenas ao serem abertos pelo usuário.",
+    respostas: [
+      { opcao: "Apenas ao responder um quiz sobre o conteúdo do PDF.", correto: false },
+      { opcao: "Apenas ao abrir o arquivo PDF.", correto: true },
+      { opcao: "É necessário fazer o download e imprimir o documento.", correto: false }
+    ]
+  },
+  {
+    pergunta: "Qual é a principal função do 'Update' (Atualização) do curso na plataforma Google Skills?",
+    justificativa: "Fazer o 'update' do curso garante que a plataforma sincronize e registre corretamente a conclusão das tarefas e laboratórios, evitando problemas de validação.",
+    respostas: [
+      { opcao: "Garantir que a trilha PEF36 desapareça após o uso.", correto: false },
+      { opcao: "Sincronizar e garantir a correta validação das tarefas e laboratórios.", correto: true },
+      { opcao: "Aumentar o tempo dos laboratórios práticos.", correto: false }
     ]
   }
 ];
