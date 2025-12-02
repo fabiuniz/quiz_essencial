@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☁️ Quiz Personalizável com Recomeço Seletivo - Tema Escuro</title>
+    <script src="quiz.js"></script>    
+    <style>
+        /* Estilos Tema Escuro */
+        :root {
+            /* Cores Escuras */
+            --cor-fundo-principal: #121212;
+            --cor-fundo-card: #1e1e1e;
+            --cor-texto-principal: #f9f9f9;
+            --cor-texto-secundario: #bbb;
+            --cor-borda: #333;
+            --cor-sombra: rgba(0, 0, 0, 0.5);
+            
+            /* Cores de Ação/Feedback - Mantidas para visibilidade */
+            --cor-primaria: #007bff;
+            --cor-primaria-hover: #0056b3;
+            --cor-correto: #4CAF50;
+            --cor-incorreto: #F44336;
+            --cor-recomecar-erros: #ffc107;
+            --cor-recomecar-erros-hover: #e0a800;
+        }
+
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            /* Fundo Escuro */
+            background: var(--cor-fundo-principal); 
+            color: var(--cor-texto-principal);
+        }
+
+        .cabecalho {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* Cor de Título Claro */
+        .titulo h1 {
+            color: var(--cor-texto-principal);
+            margin-bottom: 5px;
+        }
+
+        .conteudo-jogo {
+            width: 90%;
+            max-width: 600px;
+            padding: 20px;
+            /* Fundo do Card Escuro */
+            background: var(--cor-fundo-card);
+            border: 1px solid var(--cor-borda);
+            box-shadow: 0 4px 12px var(--cor-sombra); 
+            border-radius: 8px; /* Borda arredondada para tema escuro */
+        }
+
+        /* --- ESTILOS PARA EDIÇÃO DE JSON E PROMPT --- */
+
+        #btn-open-editor {
+            background: none;
+            border: 1px solid var(--cor-borda);
+            color: var(--cor-texto-secundario);
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.8em;
+            margin-bottom: 15px;
+            transition: background 0.2s;
+        }
+        #btn-open-editor:hover {
+            background: #2b2b2b;
+            color: var(--cor-texto-principal);
+        }
+
+        #editor-container {
+            display: none; /* Inicia oculto */
+            width: 90%;
+            max-width: 600px;
+            padding: 15px;
+            background-color: #2b2b2b;
+            border: 1px solid var(--cor-borda);
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .prompt-config {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap; /* Para telas menores */
+        }
+
+        .prompt-config label {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.9em;
+            color: var(--cor-texto-secundario);
+        }
+        .prompt-config input, .prompt-config select {
+            padding: 5px;
+            margin-top: 3px;
+            background-color: #121212;
+            color: var(--cor-texto-principal);
+            border: 1px solid #555;
+            border-radius: 4px;
+        }
+
+        .prompt-config #input-assunto {
+            flex-grow: 1; /* Permite que o campo assunto ocupe mais espaço */
+        }
+        
+        #json-input {
+            width: calc(100% - 10px);
+            min-height: 250px; /* Aumentado o tamanho para visualizar melhor o prompt */
+            margin-bottom: 10px;
+            padding: 5px;
+            box-sizing: border-box;
+            font-family: monospace;
+            font-size: 0.8em;
+            background-color: #121212;
+            color: var(--cor-texto-secundario);
+            border: 1px solid #555;
+            resize: vertical;
+        }
+
+        #btn-apply-json {
+            width: 100%;
+            height: 40px;
+            background: var(--cor-correto);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        #btn-apply-json:hover {
+            background: #388e3c;
+        }
+
+        /* ------------------- RESTANTE DO QUIZ ------------------------ */
+
+        .questionario {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .conteudo {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .pergunta {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: var(--cor-texto-principal);
+        }
+
+        .progresso {
+            text-align: right;
+            font-size: small;
+            margin-bottom: 5px;
+            color: var(--cor-texto-secundario);
+        }
+
+        .respostas {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .botao-resposta {
+            width: 100%;
+            min-height: 40px;
+            padding: 10px;
+            border: 1px solid var(--cor-borda);
+            cursor: pointer;
+            /* Estilo Botão Padrão Escuro */
+            background: #2b2b2b; 
+            color: var(--cor-texto-principal);
+            text-align: left;
+            transition: background 0.15s, border-color 0.15s;
+            border-radius: 4px;
+        }
+
+        .botao-resposta:hover:not([disabled]) {
+            background: #3a3a3a;
+            border-color: #555;
+        }
+        
+        /* Estilos de Feedback (mantidos com cores vibrantes) */
+        .correto {
+            background-color: var(--cor-correto) !important;
+            color: white;
+            border-color: #388e3c !important;
+        }
+
+        .incorreto {
+            background-color: var(--cor-incorreto) !important;
+            color: white;
+            border-color: #d32f2f !important;
+        }
+
+        /* Justificativa */
+        .justificativa-texto {
+            font-style: italic;
+            font-size: 0.9em;
+            color: var(--cor-texto-secundario);
+            border-left: 4px solid var(--cor-primaria);
+            padding-left: 10px;
+            margin-top: 10px;
+            display: none; 
+        }
+
+        /* Botão de Continuação */
+        .botao-continuar {
+            width: 200px;
+            height: 45px;
+            margin: 15px 0 0 auto; 
+            border: none;
+            cursor: pointer;
+            background: var(--cor-primaria); 
+            color: white;
+            font-size: 1em;
+            font-weight: 600;
+            display: none; 
+            transition: background 0.2s;
+            border-radius: 4px;
+        }
+
+        .botao-continuar:hover {
+            background: var(--cor-primaria-hover);
+        }
+        
+        /* Botões de Recomeço */
+        .botoes-fim {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .botao-recomecar, .botao-recomecar-erros {
+            width: 220px;
+            height: 40px;
+            border: 1px solid var(--cor-borda);
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s, color 0.2s;
+            border-radius: 4px;
+        }
+
+        .botao-recomecar {
+            /* Botão de Recomeço Padrão no Tema Escuro */
+            background: #3a3a3a;
+            color: var(--cor-texto-principal);
+        }
+        .botao-recomecar:hover {
+            background: #555;
+        }
+        
+        .botao-recomecar-erros {
+            /* Botão de Destaque */
+            background: var(--cor-recomecar-erros); 
+            color: #1e1e1e; /* Texto escuro no botão amarelo */
+            display: none; 
+            border-color: var(--cor-recomecar-erros);
+        }
+        .botao-recomecar-erros:hover {
+            background: var(--cor-recomecar-erros-hover);
+        }
+
+        .fim {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .fim span {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--cor-texto-principal);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="cabecalho">
+        <div class="titulo">
+            <h1>Quiz Essencial</h1>
+        </div>
+        <button id="btn-open-editor">🛠️ Carregar Novo JSON</button>
+    </header>
+
+    <div id="editor-container">
+        <h3 style="margin-top: 0; color: var(--cor-texto-principal);">Instruções para Carregamento</h3>
+        <p style="font-size: 0.9em; color: var(--cor-texto-secundario); margin-bottom: 15px;">
+            Você pode **colar um JSON de questões** diretamente na caixa abaixo, OU, usar os campos de personalização para **gerar um prompt** para uma IA criar o JSON. O resultado da IA deve ser **SOMENTE** o código JSON.
+        </p>
+
+        <div class="prompt-config">
+            <label for="input-quantidade">Quantidade:</label>
+            <input type="number" id="input-quantidade" value="10" min="1" max="50" style="width: 50px;">
+            
+            <label for="select-dificuldade">Dificuldade:</label>
+            <select id="select-dificuldade">
+                <option value="Básico">Básico</option>
+                <option value="Intermediário" selected>Intermediário</option>
+                <option value="Avançado">Avançado</option>
+                <option value="Certificação">Certificação</option>
+            </select>
+            
+            <label for="input-assunto">Assunto (Tópico):</label>
+            <input type="text" id="input-assunto" value="Programação Assíncrona com Async/Await em JavaScript">
+        </div>
+
+        <label for="json-input" style="font-weight: bold; color: var(--cor-texto-principal);">
+            Insira seu JSON ou use este prompt em uma IA:
+        </label>
+        
+        <textarea id="json-input" placeholder="Cole o array JSON com as perguntas aqui ou use o prompt gerado..."></textarea>
+        <button id="btn-apply-json">OK - Aplicar e Recomeçar Quiz</button>
+    </div>
+
+    <main class="conteudo-jogo">
+        <section class="questionario">
+            <div class="conteudo">
+                <span class="progresso"></span>
+                <p class="pergunta"></p>
+                <div class="respostas"></div>
+                <p class="justificativa-texto"></p>
+            </div>
+            <button class="botao-continuar">Próxima Pergunta &gt;</button> 
+            <div class="fim">
+                <span></span>
+                <div class="botoes-fim">
+                    <button class="botao-recomecar-erros">Recomeçar (Erros)</button> 
+                    <button class="botao-recomecar">Recomeçar (Completo)</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+        // Inicializa a variável no escopo global (window) se ela ainda não existir.
+        if (typeof window.perguntasOriginais === 'undefined') {
+            window.perguntasOriginais = window.perguntasOriginais || []; // Assume que quiz.js define perguntasOriginais
+        }
+        
+        // =========================================================================
+        // 2. VARIÁVEIS DE CONTROLE E ELEMENTOS DOM
+        // =========================================================================
+        let perguntasAtuais = [...perguntasOriginais]; 
+        let perguntasErradas = [];
+        let emRepescagem = false;
+
+        const perguntaElemento = document.querySelector(".pergunta");
+        const respostasElemento = document.querySelector(".respostas");
+        const progressoElemento = document.querySelector(".progresso");
+        const textoFinal = document.querySelector(".fim span");
+        const conteudo = document.querySelector(".conteudo");
+        const conteudoFinal = document.querySelector(".fim");
+        const botaoRecomecarCompleto = document.querySelector(".botao-recomecar");
+        const justificativaElemento = document.querySelector(".justificativa-texto");
+        const botaoContinuar = document.querySelector(".botao-continuar"); 
+        const botaoRecomecarErros = document.querySelector(".botao-recomecar-erros"); 
+        
+        // Novos elementos para a função de edição de JSON/Prompt
+        const btnOpenEditor = document.getElementById('btn-open-editor');
+        const editorContainer = document.getElementById('editor-container');
+        const jsonInput = document.getElementById('json-input');
+        const btnApplyJson = document.getElementById('btn-apply-json');
+        // Novos campos de personalização
+        const inputQuantidade = document.getElementById('input-quantidade');
+        const inputAssunto = document.getElementById('input-assunto');
+        const selectDificuldade = document.getElementById('select-dificuldade');
+
+
+        let indiceAtual = 0;
+        let acertos = 0;
+
+        // =========================================================================
+        // 3. FUNÇÕES DE FLUXO DO QUIZ (SEM MUDANÇAS)
+        // =========================================================================
+
+        function selecionarResposta(botaoClicado, respostaCorreta) {
+            const perguntaAtual = perguntasAtuais[indiceAtual];
+            
+            // 1. Desabilita todos os botões e mostra feedback visual
+            Array.from(respostasElemento.children).forEach(botao => {
+                botao.disabled = true;
+                
+                const respostaAssociada = perguntaAtual.respostas.find(r => r.opcao === botao.textContent);
+                
+                if (respostaAssociada.correto) {
+                    botao.classList.add("correto");
+                } else if (botao === botaoClicado) {
+                    botao.classList.add("incorreto");
+                }
+            });
+
+            // 2. Conta acertos E armazena erros
+            if (respostaCorreta) {
+                acertos++;
+            } else {
+                // Adiciona a pergunta ao array de erros SOMENTE se não estiver lá
+                if (!perguntasErradas.includes(perguntaAtual)) {
+                    perguntasErradas.push(perguntaAtual);
+                }
+            }
+
+            // 3. Exibe a Justificativa e o Botão de Continuação
+            justificativaElemento.innerHTML = '<strong>Justificativa:</strong> ' + perguntaAtual.justificativa;
+            justificativaElemento.style.display = "block"; 
+            botaoContinuar.style.display = "block"; 
+        }
+
+        function avancarPergunta() {
+            justificativaElemento.style.display = "none";
+            botaoContinuar.style.display = "none";
+
+            indiceAtual++;
+
+            if (indiceAtual < perguntasAtuais.length) {
+                carregarPergunta();
+            } else {
+                finalizarJogo();
+            }
+        }
+
+        function carregarPergunta() {
+            // Verifica se a lista de perguntas está vazia (pode acontecer se quiz.js falhar)
+            if (perguntasAtuais.length === 0 && window.perguntasOriginais && window.perguntasOriginais.length > 0) {
+                 // Inicializa novamente se for o caso
+                 perguntasAtuais = [...window.perguntasOriginais];
+            } else if (!window.perguntasOriginais || perguntasAtuais.length === 0) {
+                perguntaElemento.textContent = "Nenhuma questão carregada. Insira o JSON de questões usando o botão 'Carregar Novo JSON'.";
+                progressoElemento.textContent = "0/0";
+                respostasElemento.innerHTML = "";
+                return;
+            }
+
+            const perguntaAtual = perguntasAtuais[indiceAtual];
+            
+            progressoElemento.textContent = `${indiceAtual + 1}/${perguntasAtuais.length}`;
+            perguntaElemento.textContent = perguntaAtual.pergunta;
+
+            respostasElemento.innerHTML = ""; 
+
+            perguntasAtuais[indiceAtual].respostas.forEach(resposta => {
+                const botao = document.createElement("button");
+                botao.classList.add("botao-resposta");
+                botao.textContent = resposta.opcao;
+                
+                botao.onclick = () => selecionarResposta(botao, resposta.correto);
+
+                respostasElemento.appendChild(botao);
+            });
+        }
+
+        function finalizarJogo() {
+            const totalPerguntasRodada = perguntasAtuais.length; 
+            const percentualRodada = ((acertos / totalPerguntasRodada) * 100).toFixed(0); 
+
+            let mensagem;
+
+            if (emRepescagem) {
+                // Mensagem específica para rodada de repescagem
+                mensagem = `Parabéns! Na rodada de erros, você acertou **${acertos} de ${totalPerguntasRodada}** perguntas, atingindo **${percentualRodada}%** de precisão.`;
+            } else {
+                // Mensagem para a primeira rodada
+                mensagem = `Parabéns! Você acertou **${acertos} de ${totalPerguntasRodada}** perguntas, atingindo **${percentualRodada}%** de acertividade!`;
+            }
+
+            textoFinal.innerHTML = mensagem;
+            
+            conteudo.style.display = "none";
+            conteudoFinal.style.display = "flex";
+
+            // Se houver perguntas erradas restantes, mostra o botão de recomeço seletivo
+            if (perguntasErradas.length > 0) {
+                botaoRecomecarErros.textContent = `Recomeçar (${perguntasErradas.length} Erros)`;
+                botaoRecomecarErros.style.display = "block";
+            } else {
+                botaoRecomecarErros.style.display = "none";
+                
+                // Se não houver mais erros e for repescagem, informa que terminou tudo
+                if (emRepescagem) {
+                    textoFinal.innerHTML += "<br><br>🎉 **Você zerou todos os erros! Excelente trabalho!**";
+                }
+            }
+        }
+
+        function recomecarSomenteErros() {
+            if (perguntasErradas.length === 0) {
+                alert("Você acertou todas as questões! Não há erros para refazer.");
+                return;
+            }
+
+            emRepescagem = true;
+            perguntasAtuais = [...perguntasErradas]; 
+            perguntasErradas = []; 
+            
+            indiceAtual = 0;
+            acertos = 0; 
+            
+            conteudoFinal.style.display = "none";
+            conteudo.style.display = "flex";
+            carregarPergunta();
+        }
+
+        function recomecarJogoCompleto() {
+            emRepescagem = false;
+            
+            // Recarrega a lista original de perguntas
+            perguntasAtuais = [...window.perguntasOriginais]; 
+            perguntasErradas = []; // Limpa todos os erros
+            
+            indiceAtual = 0;
+            acertos = 0;
+            
+            conteudoFinal.style.display = "none";
+            conteudo.style.display = "flex";
+            carregarPergunta();
+        }
+
+
+        // =========================================================================
+        // 4. FUNÇÕES DE EDIÇÃO DE JSON E GERAÇÃO DE PROMPT (Nova Funcionalidade)
+        // =========================================================================
+
+        function toggleEditor() {
+            const isHidden = editorContainer.style.display === 'none' || editorContainer.style.display === '';
+            editorContainer.style.display = isHidden ? 'block' : 'none';
+            if (isHidden) {
+                updatePromptText(); // Atualiza o prompt ao abrir
+            }
+        }
+
+        function applyNewJson() {
+            const jsonText = jsonInput.value.trim();
+            // Tenta detectar se o usuário colou o prompt em vez do JSON.
+            if (jsonText.includes("Instruções: Crie") && jsonText.includes("Estrutura de Saída (Formato JSON)")) {
+                alert('Atenção: Você colou o **prompt**, e não o JSON. Por favor, use o prompt em uma IA e cole aqui SOMENTE o código JSON resultante (o array `[...]`).');
+                return;
+            }
+
+            if (!jsonText) {
+                alert('Por favor, insira o JSON na área de texto.');
+                return;
+            }
+
+            try {
+                // Tenta fazer o parsing do JSON.
+                const novoJson = JSON.parse(jsonText);
+
+                // Validação básica
+                if (Array.isArray(novoJson) && novoJson.length > 0 && novoJson[0].hasOwnProperty('pergunta')) {
+                    // Aplica o novo JSON à variável global 'window.perguntasOriginais'.
+                    window.perguntasOriginais = novoJson; 
+
+                    // Reinicia o quiz com a nova lista de perguntas
+                    recomecarJogoCompleto(); 
+
+                    alert(`Sucesso! ${novoJson.length} questões carregadas. O quiz foi reiniciado.`);
+                    toggleEditor(); // Fecha o editor
+                } else {
+                    alert('JSON inválido. O JSON deve ser um array de objetos de perguntas com as chaves \"pergunta\", \"justificativa\" e \"respostas\".');
+                }
+
+            } catch (e) {
+                // Captura erros de parsing JSON.
+                alert('Erro ao processar JSON: Verifique a sintaxe JSON. Erro: ' + e.message);
+            }
+        }
+
+        /**
+         * Cria um prompt estruturado para gerar questões em formato JSON.
+         */
+        function criarPromptParaQuestoes(quantidade, assunto, dificuldade) {
+            // Estrutura JSON de exemplo para referência no prompt
+            const estruturaExemplo = `
+[
+    {
+        "pergunta": "Qual domínio compreende a maior porcentagem de conteúdo pontuado no AWS Certified Machine Learning – Specialty Exam (MLS-C01)?",
+        "justificativa": "O domínio **Modeling** é o de maior peso no exame MLS-C01, representando 36% do conteúdo. ",
+        "respostas": [
+            {
+                "opcao": "Data engineering (20%)",
+                "correto": false
+            },
+            {
+                "opcao": "Modeling (36%)",
+                "correto": true
+            },
+            {
+                "opcao": "Exploratory data analysis (24%)",
+                "correto": false
+            },
+            {
+                "opcao": "Machine learning implementation and operations (20%)",
+                "correto": false
+            }
+        ]
+    }
+]
+`;
+
+            // Montando o prompt dinamicamente usando template literals
+            const prompt = `
+Instruções: Crie **${quantidade}** questões de múltipla escolha sobre o assunto **${assunto}**.
+
+### 1. Estrutura de Saída (Formato JSON)
+
+O resultado **DEVE** ser um único array JSON que siga estritamente a estrutura fornecida abaixo, sem qualquer texto adicional ou explicação, formatação ou introdução antes ou depois do código JSON.
+
+* \`pergunta\` (string): O texto da pergunta.
+* \`justificativa\` (string): Uma explicação clara e detalhada de por que a opção correta está certa e as outras erradas.
+* \`respostas\` (array de objetos): Uma lista de 4 opções de resposta.
+* Cada objeto dentro de \`respostas\` deve ter os campos:
+    * \`opcao\` (string): O texto da opção de resposta.
+    * \`correto\` (boolean): \`true\` se for a resposta correta, \`false\` caso contrário. Apenas **uma** opção deve ser \`true\`.
+
+### 2. Conteúdo e Dificuldade
+
+* **Assunto:** ${assunto}
+* **Nível de Dificuldade:** ${dificuldade}
+* **Estilo:** As perguntas devem ser relevantes e cobrir os conceitos centrais do tópico especificado.
+
+### 3. Exemplo da Estrutura (Referência)
+
+Use esta estrutura EXATAMENTE, mas com ${quantidade} questões:
+
+\`\`\`json
+${estruturaExemplo.trim()}
+\`\`\`
+`;
+
+            return prompt.trim();
+        }
+
+        /**
+         * Atualiza o texto do prompt na textarea com base nos campos de entrada.
+         */
+        function updatePromptText() {
+            const quantidade = parseInt(inputQuantidade.value) || 10;
+            const assunto = inputAssunto.value || "Tópico Essencial";
+            const dificuldade = selectDificuldade.value || "Intermediário";
+            
+            jsonInput.value = criarPromptParaQuestoes(quantidade, assunto, dificuldade);
+        }
+
+        // =========================================================================
+        // 5. EVENT LISTENERS E INICIALIZAÇÃO
+        // =========================================================================
+
+        // Eventos do Quiz
+        botaoContinuar.onclick = avancarPergunta;
+        botaoRecomecarCompleto.onclick = recomecarJogoCompleto;
+        botaoRecomecarErros.onclick = recomecarSomenteErros; 
+
+        // Eventos do Editor de JSON
+        btnOpenEditor.addEventListener('click', toggleEditor);
+        btnApplyJson.addEventListener('click', applyNewJson);
+
+        // Eventos para atualizar o prompt dinamicamente
+        inputQuantidade.addEventListener('input', updatePromptText);
+        inputAssunto.addEventListener('input', updatePromptText);
+        selectDificuldade.addEventListener('change', updatePromptText);
+
+
+        // Iniciando o jogo e definindo o prompt inicial na textarea
+        updatePromptText();
+        carregarPergunta();
+
+    </script>
+</body>
+</html>
