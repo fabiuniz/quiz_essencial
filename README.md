@@ -12,6 +12,7 @@ path_hook: hookfigma.hook8, hookfigma.hook12, hookfigma.hook13
 <p align="center">
   <img src="images/screenshot.png" alt="Screenshot do Quiz Essencial" width="600"/>
 </p>
+
 ---
 
 
