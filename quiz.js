@@ -1,4 +1,4 @@
-const perguntasOriginais = [
+let perguntasOriginais = [
   {
     pergunta: "Qual é o principal benefício de focar na trilha 'Google Cloud Computing Foundations' (PEF36)?",
     justificativa: "A trilha PEF36 é essencial porque garante o acesso gratuito aos laboratórios práticos validados para o curso, que são o coração do aprendizado prático em Google Cloud.",
