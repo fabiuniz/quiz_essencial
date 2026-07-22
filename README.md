@@ -1,7 +1,7 @@
 <!--
 Tags: Fund, Dev, Skils
 Label: ☁️ Quiz Essencial
-Description: Aplicação web para criação e fixação de quizzes através da geração de JSON estruturado via IA, com recurso exclusivo de Recomeço Seletivo (Repescagem) em questões erradas.
+Description:🌍 Aplicação web para criação e fixação de quizzes através da geração de JSON estruturado via IA, com recurso exclusivo de Recomeço Seletivo (Repescagem) em questões erradas.
 technical_requirement: JavaScript (Vanilla DOM Manipulation), HTML5, CSS3 (Dark Theme), JSON, Prompts Estruturados.
 path_hook: hookfigma.hook8, hookfigma.hook12, hookfigma.hook13
 -->
