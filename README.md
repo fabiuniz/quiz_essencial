@@ -82,9 +82,9 @@ Gera questões de múltipla escolha de alto nível, com uma justificativa detalh
   }
 ]
 
+```
 ### Exemplo de Prompt Gerado pela Aplicação (Para você enviar à IA)
 > *"Atue como um Arquiteto de Nuvem Sênior. Crie um quiz técnico avançado sobre GCP (Google Cloud Platform) contendo questões de múltipla escolha estruturadas estritamente em um array JSON válido..."*
-```
 ## 💡 Melhorias Futuras
 - Persistência:
     - Adicionar a função `salvarQuiz(quizJSON)` usando `localStorage.setItem('quiz_atual', JSON.stringify(quizJSON))` após cada interação do usuário.
