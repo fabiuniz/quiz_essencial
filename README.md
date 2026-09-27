@@ -7,7 +7,7 @@ path_hook: hookfigma.hook8, hookfigma.hook12, hookfigma.hook13
 -->
 # 🚀 Quiz Essencial: Estudo Estruturado e Fixação Avançada
 
-> ⚙️ **Quiz Essencial** é a sua plataforma de estudo de próxima geração, projetada para transformar o aprendizado passivo em fixação ativa, utilizando prompts de conteúdo altamente estruturados e formatos de revisão otimizados (como o JSON de Quiz ou Roteiros de Ação).
+> ⚙️ **Quiz Essencial** é a sua plataforma de estudo de próxima geração, projetada para transformar o aprendizado passivo em fixação ativa. O seu grande diferencial é a **geração de prompts altamente estruturados** que você envia à IA para que ela formule as questões, exiba o gabarito detalhado em JSON e estruture roteiros de ação perfeitos para o seu nível.
 
 <p align="center">
   <img src="images/screenshot.png" alt="Screenshot do Quiz Essencial" width="600"/>
@@ -16,9 +16,9 @@ path_hook: hookfigma.hook8, hookfigma.hook12, hookfigma.hook13
 ---
 
 
-## 💡 O Conceito: Fixação Ativa com Estrutura
+## 💡 O Conceito: Engenharia de Prompt para Fixação Ativa
 
-Em vez de consumir conteúdo linearmente, o **Quiz Essencial** força o estudante a interagir com informações complexas através de formatos rigorosos, garantindo que o conhecimento seja não apenas compreendido, mas ativamente fixado.
+Em vez de depender de perguntas genéricas, o **Quiz Essencial** atua como um gerador de comandos especializados. Você define o tema, o nível e a ferramenta cria o prompt perfeito para você **entregar à IA**, que responderá com um conteúdo rigoroso para garantir a fixação ativa do conhecimento.
 
 A aplicação se baseia em dois pilares principais:
 
@@ -36,8 +36,8 @@ Gera questões de múltipla escolha de alto nível, com uma justificativa detalh
 
 | Recurso | Descrição | Benefício para o Usuário |
 | :--- | :--- | :--- |
-| **Quiz Generator** | Cria questões avançadas de múltipla escolha seguindo a estrutura rígida de um array JSON (`pergunta`, `justificativa`, `respostas`). | **Fixação Científica:** Força a revisão ativa e fornece a justificativa no ponto de falha. |
-| **Roteiro de Ação** | Transforma metas de estudo (como certificações ou projetos) em fluxos de trabalho visuais e priorizados em Markdown. | **Clareza e Caminho:** Elimina a confusão sobre 'o que estudar em seguida', focando em etapas e prioridades. |
+| **Gerador de Prompt para Quiz** | Cria o prompt estruturado para a IA formular questões de múltipla escolha estritas em JSON (`pergunta`, `justificativa`, `respostas`). | **Fixação Científica:** Força a revisão ativa com a IA gerando questões desafiadoras e justificadas no ponto de falha. |
+| **Gerador de Prompt para Roteiro** | Cria o comando para a IA estruturar metas de estudo e fluxos de trabalho visuais em Markdown. | **Clareza e Caminho:** Elimina a dúvida sobre o que estudar em seguida, com etapas e prioridades claras. |
 | **Metadados de Contexto** | Usa tags `` para categorizar e filtrar o tipo de prompt. | **Organização:** Facilita a busca e a organização do seu acervo de prompts de estudo. |
 | **Nível de Dificuldade** | Permite solicitar conteúdo em diferentes níveis (Básico, Intermediário, **Avançado**), garantindo o desafio adequado. | **Progressão:** Adapta o estudo ao seu nível atual, garantindo que o aprendizado seja sempre relevante. |
 
@@ -62,9 +62,9 @@ Gera questões de múltipla escolha de alto nível, com uma justificativa detalh
 2.  **Abra o `index.html`:**
     Simplesmente abra o arquivo `index.html` em seu navegador. Não são necessários servidores ou dependências externas (exceto a conexão com o motor de IA via API).
 3.  **Defina o Assunto e o Nível:** Exemplo: Assunto: `GCP`, Nível: `Avançado`.
-4.  **Defina a Estrutura de Saída:** Escolha se você precisa de um **Roteiro em Markdown** ou um **Quiz em JSON**.
-5.  **Gere o Prompt:** Use o gerador de prompts para criar o conteúdo estruturado.
-6.  **Estude e Fixe:** Interaja com o material gerado, utilizando a estrutura rigorosa para uma revisão ativa.
+4. **Gere o Prompt na Aplicação:** Escolha se você precisa do prompt para um **Roteiro em Markdown** ou para um **Quiz em JSON**.
+5. **Envie para a IA:** Copie o prompt gerado, cole na sua IA de preferência (como ChatGPT, Claude, etc.) e deixe-a formular as questões.
+6. **Estude e Fixe:** Insira a resposta da IA na plataforma e interaja com o material para realizar a revisão ativa.
 
 ### Exemplo de Saída (Quiz de Fixação Avançada em JSON)
 
@@ -81,6 +81,9 @@ Gera questões de múltipla escolha de alto nível, com uma justificativa detalh
     ]
   }
 ]
+
+### Exemplo de Prompt Gerado pela Aplicação (Para você enviar à IA)
+> *"Atue como um Arquiteto de Nuvem Sênior. Crie um quiz técnico avançado sobre GCP (Google Cloud Platform) contendo questões de múltipla escolha estruturadas estritamente em um array JSON válido..."*
 ```
 ## 💡 Melhorias Futuras
 - Persistência:
